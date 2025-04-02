@@ -66,9 +66,6 @@ form.addEventListener("submit", async (e) => {
   email.value = "";
   errorMessage.innerHTML = "";
 
-
-
-
   fbq("track", "Lead");
   await fetch(`https://us-central1-test2-411610.cloudfunctions.net/trackform`, {
     method: "post",
