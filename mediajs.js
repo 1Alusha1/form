@@ -29,6 +29,7 @@ const handleClick = async function (e) {
     window.location.href = links[this.dataset.platform];
   }
 
+  fbq("track", this.dataset.platform);
   await fetch(`https://us-central1-test2-411610.cloudfunctions.net/trackform`, {
     method: "post",
     headers: {
@@ -57,9 +58,9 @@ form.addEventListener("submit", async (e) => {
   const errorMessage = form.querySelector(".error-message");
   const thxMessage = document.querySelector(".thx-message");
 
-  if(!emailValue.trim()){
-    errorMessage.innerHTML = "Это поле не может быть пустым"
-    return false
+  if (!emailValue.trim()) {
+    errorMessage.innerHTML = "Это поле не может быть пустым";
+    return false;
   }
 
   thxMessage.innerHTML = "Спасибо!";
