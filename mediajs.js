@@ -58,11 +58,11 @@ form.addEventListener("submit", async (e) => {
   const thxMessage = document.querySelector(".thx-message");
 
   if(!emailValue.trim()){
-    errorMessage.innerHTML = "This field cant be empty"
+    errorMessage.innerHTML = "Это поле не может быть пустым"
     return false
   }
 
-  thxMessage.innerHTML = "Thank you!";
+  thxMessage.innerHTML = "Спасибо!";
   email.value = "";
   errorMessage.innerHTML = "";
 
