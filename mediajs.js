@@ -29,7 +29,7 @@ const handleClick = async function (e) {
     window.location.href = links[this.dataset.platform];
   }
 
-  fbq("track", 'Лид');
+  fbq('track', 'Lead');
   await fetch(`https://us-central1-test2-411610.cloudfunctions.net/trackform`, {
     method: "post",
     headers: {
