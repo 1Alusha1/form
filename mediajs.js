@@ -8,7 +8,7 @@ const mode = URI["prod"];
 const hendlebutton = document.querySelectorAll(".hendlebutton");
 const fomr = document.querySelector("#form");
 const links = {
-  telegram: "https://t.me/hotsleads",
+  telegram: "https://t.me/hot_leads_trafficg_bot",
   whatsapp: "https://wa.me/420722242996",
   skype: "",
 };
@@ -43,7 +43,6 @@ const handleClick = async function (e) {
       leadIp: leadIp,
     }),
   });
-  this.removeEventListener("click", handleClick); // Удаляем обработчик
 };
 
 hendlebutton.forEach((item) => {
@@ -59,11 +58,11 @@ form.addEventListener("submit", async (e) => {
   const thxMessage = document.querySelector(".thx-message");
 
   if (!emailValue.trim()) {
-    errorMessage.innerHTML = "Это поле не может быть пустым";
+    errorMessage.innerHTML = "This field cant be empty";
     return false;
   }
 
-  thxMessage.innerHTML = "Спасибо!";
+  thxMessage.innerHTML = "Thank you!";
   email.value = "";
   errorMessage.innerHTML = "";
 
