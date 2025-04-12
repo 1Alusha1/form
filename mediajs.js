@@ -24,7 +24,7 @@ const handleClick = async function (e) {
   const leadIp = await getIp();
 
   if (this.dataset.platform === "skype") {
-    openSkype("live:.cid.a69ff49abe732e55");
+    openSkype("live:.cid.60e1be406cdf48a6");
   } else {
     window.location.href = links[this.dataset.platform];
   }
