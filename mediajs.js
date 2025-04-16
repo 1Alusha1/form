@@ -1,82 +1,113 @@
 const URI = {
-  dev: "http://localhost:8080",
-  prod: "https://us-central1-test2-411610.cloudfunctions.net/trackform",
+  dev: 'http://localhost:8080',
+  prod: 'https://us-central1-test2-411610.cloudfunctions.net/trackform',
 };
 
-const mode = URI["prod"];
+const mode = URI['prod'];
 
-const hendlebutton = document.querySelectorAll(".hendlebutton");
-const fomr = document.querySelector("#form");
+const hendlebutton = document.querySelectorAll('.hendlebutton');
+const fomr = document.querySelector('#form');
 const links = {
-  telegram: "https://t.me/hot_leads_trafficg_bot",
-  whatsapp: "https://wa.me/420722242996",
-  skype: "",
+  telegram: 'https://t.me/hot_leads_trafficg_bot',
+  whatsapp: 'https://wa.me/420722242996',
+  skype: '',
 };
 
 const getIp = async () => {
-  const res = await fetch("https://api64.ipify.org");
+  const res = await fetch('https://api64.ipify.org');
   const data = await res.text();
   return data;
 };
 
+function stringToBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+async function geoIpLookup() {
+  const res = await fetch('https://get.geojs.io/v1/ip/country.json');
+
+  const { country, ip } = await res.json();
+
+  return { country, ip };
+}
+
 const handleClick = async function (e) {
   e.preventDefault();
-  const leadIp = await getIp();
+  const leadIp = await geoIpLookup();
 
-  if (this.dataset.platform === "skype") {
-    openSkype("live:.cid.60e1be406cdf48a6");
-  } else {
-    window.location.href = links[this.dataset.platform];
+  switch (this.dataset.platform) {
+    case 'skype':
+      openSkype('live:.cid.60e1be406cdf48a6');
+      break;
+    case 'telegram':
+      const data = `${leadIp.ip}&${getUtmParams().ad}&${getUtmParams().pixel}&${
+        leadIp.country
+      }`;
+
+      const base = stringToBase64(data);
+      console.log(`tg://resolve?domain=trafficg_hot_leads_bot&start=${base}`);
+      window.location.href = `tg://resolve?domain=trafficg_hot_leads_bot&start=${base}`;
+      break;
+    case 'whatsapp':
+      window.location.href = links[this.dataset.platform];
+      break;
+    default:
+      return;
   }
 
-  fbq('track', 'Lead');
-  await fetch(`https://us-central1-test2-411610.cloudfunctions.net/trackform`, {
-    method: "post",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      platform: this.dataset.platform,
-      userId: "7325647133",
-      created_at: Date.now(),
-      utmLink: getUtmParams(),
-      leadIp: leadIp,
-    }),
-  });
+  // if (this.dataset.platform === 'skype') {
+  //   openSkype('live:.cid.60e1be406cdf48a6');
+  // } else {
+  //   window.location.href = links[this.dataset.platform];
+  // }
+
+  // fbq('track', 'Lead');
+  // await fetch(`https://us-central1-test2-411610.cloudfunctions.net/trackform`, {
+  //   method: "post",
+  //   headers: {
+  //     "content-type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     platform: this.dataset.platform,
+  //     userId: "7325647133",
+  //     created_at: Date.now(),
+  //     utmLink: getUtmParams().ad,
+  //     leadIp: leadIp,
+  //   }),
+  // });
 };
 
 hendlebutton.forEach((item) => {
-  item.addEventListener("click", handleClick);
+  item.addEventListener('click', handleClick);
 });
 
-form.addEventListener("submit", async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const leadIp = await getIp();
-  const email = form.querySelector(".email-input");
+  const email = form.querySelector('.email-input');
   const emailValue = email.value.trim();
-  const errorMessage = form.querySelector(".error-message");
-  const thxMessage = document.querySelector(".thx-message");
+  const errorMessage = form.querySelector('.error-message');
+  const thxMessage = document.querySelector('.thx-message');
 
   if (!emailValue.trim()) {
-    errorMessage.innerHTML = "This field cant be empty";
+    errorMessage.innerHTML = 'This field cant be empty';
     return false;
   }
 
-  thxMessage.innerHTML = "Thank you!";
-  email.value = "";
-  errorMessage.innerHTML = "";
+  thxMessage.innerHTML = 'Thank you!';
+  email.value = '';
+  errorMessage.innerHTML = '';
 
   fbq('track', 'Lead');
   await fetch(`https://us-central1-test2-411610.cloudfunctions.net/trackform`, {
-    method: "post",
+    method: 'post',
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
     body: JSON.stringify({
       email: emailValue,
-      userId: "7325647133",
+      userId: '7325647133',
       created_at: Date.now(),
-      utmLink: getUtmParams(),
+      utmLink: getUtmParams().ad,
       leadIp: leadIp,
     }),
   });
@@ -87,7 +118,8 @@ function getUtmParams() {
 
   // Составляем объект с UTM параметрами
   var utmParams = {
-    ad: params.get("ad"),
+    ad: params.get('ad'),
+    pixel: params.get('pixel'),
   };
 
   // Убираем параметры с пустыми значениями
@@ -97,17 +129,17 @@ function getUtmParams() {
     }
   });
 
-  return utmParams.ad;
+  return utmParams;
 }
 
 function openSkype(username) {
   const skypeLink = `skype:${username}?chat`;
-  const appStoreLink = "https://apps.apple.com/app/skype/id304878510";
+  const appStoreLink = 'https://apps.apple.com/app/skype/id304878510';
   const playStoreLink =
-    "https://play.google.com/store/apps/details?id=com.skype.raider";
-  const skypeWebLink = "https://web.skype.com/";
+    'https://play.google.com/store/apps/details?id=com.skype.raider';
+  const skypeWebLink = 'https://web.skype.com/';
 
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   link.href = skypeLink;
   document.body.appendChild(link);
 
