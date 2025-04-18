@@ -44,8 +44,8 @@ const handleClick = async function (e) {
       }`;
 
       const base = stringToBase64(data);
-      console.log(`tg://resolve?domain=trafficg_hot_leads_bot&start=${base}`);
-      window.location.href = `tg://resolve?domain=trafficg_hot_leads_bot&start=${base}`;
+      console.log(`tg://resolve?domain=hot_leads_trafficg_bot&start=${base}`);
+      window.location.href = `tg://resolve?domain=hot_leads_trafficg_bot&start=${base}`;
       break;
     case 'whatsapp':
       window.location.href = links[this.dataset.platform];
