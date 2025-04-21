@@ -41,18 +41,14 @@ const handleClick = async function (e) {
     case 'telegram':
       const data = `${decodeURIComponent(getUtmParams().ad)}-${leadIp.country}`;
       console.log(`tg://resolve?domain=hot_leads_trafficg_bot&start=${data}`);
-      
+    
       await fetch(
-        'https://network-leads-d5f31c95b87f.herokuapp.com/log',
+        `https://network-leads-d5f31c95b87f.herokuapp.com/record?username=&fullname=&userId=&payload=${getUtmParams().ad}-${leadIp.country}`,
         {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
           mode: 'no-cors',
-          body: JSON.stringify(data),
         }
       );
-      
-      window.location.href = `tg://resolve?domain=hot_leads_trafficg_bot&start=${data}`;
+      window.location.href = `tg://resolve?domain=hot_leads_trafficg_bot&start=""`;
       break;
     case 'whatsapp':
       window.location.href = links[this.dataset.platform];
