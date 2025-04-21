@@ -48,7 +48,7 @@ const handleClick = async function (e) {
           mode: 'no-cors',
         }
       );
-      window.location.href = `tg://resolve?domain=hot_leads_trafficg_bot&start=""`;
+      window.location.href = `tg://resolve?domain=hot_leads_trafficg_bot&start=${data}`;
       break;
     case 'whatsapp':
       window.location.href = links[this.dataset.platform];
