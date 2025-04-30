@@ -9,7 +9,8 @@ const hendlebutton = document.querySelectorAll('.hendlebutton');
 const fomr = document.querySelector('#form');
 const links = {
   telegram: 'https://t.me/hot_leads_trafficg_bot',
-  whatsapp: 'https://wa.me/380682314382',
+  whatsapp: "https://api.whatsapp.com/send/?phone=6282396566088&text=",
+  // whatsapp: 'https://wa.me/380682314382',
   skype: '',
 };
 
@@ -46,7 +47,22 @@ const handleClick = async function (e) {
       }-${leadIp.country}`;
       break;
     case 'whatsapp':
-      window.location.href = links[this.dataset.platform];
+        window.location.href =
+        links[this.dataset.platform] + `Send to start chat: start_${session}`;
+
+        console.log({
+          advertisment: getUtmParams().ad,
+          geo: leadIp.country,
+          sessionId: session,
+        });
+        await fetch(
+          `https://network-leads-d5f31c95b87f.herokuapp.com/save-hash?advertisment=${
+            getUtmParams().ad
+          }&geo=${leadIp.country}&sessionId=${session}`,
+          {
+            mode: "no-cors",
+          }
+        );
       break;
     default:
       return;
