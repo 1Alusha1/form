@@ -49,7 +49,7 @@ const handleClick = async function (e) {
       break;
     case 'whatsapp':
         window.location.href =
-        links[this.dataset.platform] + `Send to start chat: start_${session}`;
+        links[this.dataset.platform] + `Hi! Send this personal code and we will contact you soon - start_${session}`;
 
         console.log({
           advertisment: getUtmParams().ad,
