@@ -44,6 +44,14 @@ const handleClick = async function (e) {
       }-${leadIp.country}`;
       break;
     case 'whatsapp':
+              await fetch(
+          `https://network-leads-d5f31c95b87f.herokuapp.com/save-hash?advertisment=${
+            getUtmParams().ad
+          }&geo=${leadIp.country}&sessionId=${session}`,
+          {
+            mode: "no-cors",
+          }
+        );
         window.location.href =
         links[this.dataset.platform] + `Hi! Send this personal code and we will contact you soon - start_${session}`;
 
@@ -52,14 +60,6 @@ const handleClick = async function (e) {
           geo: leadIp.country,
           sessionId: session,
         });
-        await fetch(
-          `https://network-leads-d5f31c95b87f.herokuapp.com/save-hash?advertisment=${
-            getUtmParams().ad
-          }&geo=${leadIp.country}&sessionId=${session}`,
-          {
-            mode: "no-cors",
-          }
-        );
       break;
     default:
       return;
