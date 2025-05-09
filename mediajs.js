@@ -9,7 +9,7 @@ const hendlebutton = document.querySelectorAll('.hendlebutton');
 const fomr = document.querySelector('#form');
 const links = {
   telegram: 'https://t.me/hot_leads_trafficg_bot',
-  whatsapp: "https://api.whatsapp.com/send/?phone=6282396566088&text=",
+  whatsapp: "https://api.whatsapp.com/send/?phone=6283800261952&text=",
   // whatsapp: 'https://wa.me/380682314382',
 };
 
